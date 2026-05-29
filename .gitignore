@@ -1,0 +1,24 @@
+
+*.iml
+.gradle
+.idea
+.kotlin
+.DS_Store
+build
+*/build
+captures
+.externalNativeBuild
+.cxx
+local.properties
+xcuserdata/
+Pods/
+*.jks
+*.gpg
+*yarn.lock
+# Added by code-review-graph
+.code-review-graph/
+.agents
+.claude
+.crush
+.mcp.json
+AGENTS.md

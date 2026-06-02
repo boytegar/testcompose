@@ -2,18 +2,19 @@ package apps.boytegar.dev.features.detail.presentation.screen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import apps.boytegar.dev.core.ui.primitives.CoreCard
+import apps.boytegar.dev.core.ui.theme.CoreColorTokens
 import apps.boytegar.dev.core.ui.theme.CoreSpacingTokens
 import apps.boytegar.dev.features.detail.di.DetailDi
 import apps.boytegar.dev.features.detail.domain.model.DetailPhoto
@@ -36,7 +37,7 @@ fun DetailScreen(
         Column(
             verticalArrangement = Arrangement.spacedBy(CoreSpacingTokens.Md),
         ) {
-            DetailHeaderCard(selectedPhoto = selectedPhoto)
+            DetailHeaderContent(selectedPhoto = selectedPhoto)
             Text(
                 text = "More from this feed",
                 style = MaterialTheme.typography.titleMedium,
@@ -50,36 +51,39 @@ fun DetailScreen(
 }
 
 @Composable
-private fun DetailHeaderCard(selectedPhoto: DetailPhoto) {
-    CoreCard(
-        modifier = Modifier.fillMaxWidth(),
-        containerColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.08f),
+private fun DetailHeaderContent(selectedPhoto: DetailPhoto) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = CoreSpacingTokens.Md),
+        verticalArrangement = Arrangement.spacedBy(CoreSpacingTokens.Sm),
     ) {
-        Column(verticalArrangement = Arrangement.spacedBy(CoreSpacingTokens.Md)) {
-            Text(
-                text = "SELECTED PHOTO",
-                style = MaterialTheme.typography.labelMedium,
-            )
-            Text(
-                text = selectedPhoto.title,
-                style = MaterialTheme.typography.headlineMedium,
-            )
-            Row(horizontalArrangement = Arrangement.spacedBy(CoreSpacingTokens.Sm)) {
-                MetaChip(text = "Album ${selectedPhoto.albumId}")
-                MetaChip(text = "Photo #${selectedPhoto.id}")
-                MetaChip(text = "In focus")
-            }
-            Text(
-                text = selectedPhoto.url,
-                style = MaterialTheme.typography.bodySmall,
-                maxLines = 1,
-            )
-            Text(
-                text = selectedPhoto.thumbnailUrl,
-                style = MaterialTheme.typography.bodySmall,
-                maxLines = 1,
-            )
+        Text(
+            text = "SELECTED PHOTO",
+            style = MaterialTheme.typography.labelMedium,
+            color = CoreColorTokens.Primary,
+        )
+        Text(
+            text = selectedPhoto.title,
+            style = MaterialTheme.typography.headlineMedium,
+        )
+        Row(horizontalArrangement = Arrangement.spacedBy(CoreSpacingTokens.Sm)) {
+            MetaChip(text = "Album ${selectedPhoto.albumId}")
+            MetaChip(text = "Photo #${selectedPhoto.id}")
+            MetaChip(text = "In focus")
         }
+        Text(
+            text = selectedPhoto.url,
+            style = MaterialTheme.typography.bodySmall,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+        )
+        Text(
+            text = selectedPhoto.thumbnailUrl,
+            style = MaterialTheme.typography.bodySmall,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+        )
     }
 }
 

@@ -37,14 +37,28 @@ class AuthViewModelTest {
     }
 
     @Test
-    fun `login bypasses to success`() = runTest {
+    fun `phone login bypasses to success`() = runTest {
         val viewModel = AuthViewModel(
             splashDurationMillis = 0,
             loginDelayMillis = 0,
         )
 
         advanceUntilIdle()
-        viewModel.login("user", "password")
+        viewModel.loginWithPhone("081234567890")
+        advanceUntilIdle()
+
+        assertTrue(viewModel.uiState.value is Results.Success)
+    }
+
+    @Test
+    fun `social login bypasses to success`() = runTest {
+        val viewModel = AuthViewModel(
+            splashDurationMillis = 0,
+            loginDelayMillis = 0,
+        )
+
+        advanceUntilIdle()
+        viewModel.loginWithGoogle()
         advanceUntilIdle()
 
         assertTrue(viewModel.uiState.value is Results.Success)

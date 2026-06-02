@@ -2,12 +2,9 @@ package apps.boytegar.dev.features.auth.presentation
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import apps.boytegar.dev.features.auth.di.AuthDi
 import apps.boytegar.dev.shared.components.MultiStateView
@@ -16,11 +13,9 @@ import apps.boytegar.dev.shared.utils.Results
 
 @Composable
 fun AuthScreen() {
-    val viewModel = remember { AuthDi.authViewModel() }
+    val viewModel = rememberAuthViewModel()
     val navigationActions = LocalAppNavigationActions.current
     val uiState = viewModel.uiState.collectAsState().value
-    var username by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
 
     LaunchedEffect(uiState) {
         if (uiState is Results.Success) {
@@ -34,15 +29,15 @@ fun AuthScreen() {
         loadingLayout = { AuthSplashLayout() },
         emptyLayout = {
             AuthLoginLayout(
-                username = username,
-                password = password,
-                onUsernameChange = { username = it },
-                onPasswordChange = { password = it },
-                onLoginClick = {
-                    viewModel.login(username, password)
-                },
+                onPhoneLoginClick = { viewModel.loginWithPhone("081234567890") },
+                onGoogleLoginClick = viewModel::loginWithGoogle,
+                onFacebookLoginClick = viewModel::loginWithFacebook,
+                onXLoginClick = viewModel::loginWithX,
             )
         },
     ) {
     }
 }
+
+@Composable
+private fun rememberAuthViewModel() = androidx.compose.runtime.remember { AuthDi.authViewModel() }

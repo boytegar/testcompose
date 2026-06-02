@@ -1,5 +1,6 @@
 package apps.boytegar.dev.features.home.presentation.screen
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -22,8 +23,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import apps.boytegar.dev.core.ui.primitives.CoreCard
+import apps.boytegar.dev.core.ui.primitives.PillButton
 import apps.boytegar.dev.core.ui.theme.CoreSpacingTokens
 import apps.boytegar.dev.core.ui.theme.CoreColorTokens
+import apps.boytegar.dev.core.ui.theme.CoreTheme
 import apps.boytegar.dev.features.favorites.di.FavoritesDi
 import apps.boytegar.dev.features.favorites.domain.model.FavoritePhoto
 import apps.boytegar.dev.features.home.di.HomeDi
@@ -94,7 +97,9 @@ private fun HomePhotosContent(
     onFavoritesClick: () -> Unit,
 ) {
     LazyColumn(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(CoreColorTokens.SurfaceLight),
         contentPadding = PaddingValues(
             horizontal = CoreSpacingTokens.Md,
             vertical = CoreSpacingTokens.Lg,
@@ -216,7 +221,7 @@ private fun StatPill(
     Surface(
         modifier = modifier,
         shape = RoundedCornerShape(20.dp),
-        color = MaterialTheme.colorScheme.surface.copy(alpha = 0.82f),
+        color = CoreColorTokens.Surface.copy(alpha = 0.82f),
     ) {
         Column(
             modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp),
@@ -248,7 +253,7 @@ private fun HomePhotoCard(
             .clickable { onClick(photo) },
         containerColor = when (index % 3) {
             0 -> MaterialTheme.colorScheme.primary.copy(alpha = 0.06f)
-            1 -> MaterialTheme.colorScheme.surface.copy(alpha = 0.94f)
+            1 -> CoreColorTokens.Surface.copy(alpha = 0.94f)
             else -> CoreColorTokens.AccentTeal.copy(alpha = 0.08f)
         },
         shadowElevation = 0.dp,
@@ -272,7 +277,7 @@ private fun HomePhotoCard(
                     overflow = TextOverflow.Ellipsis,
                 )
                 Row(horizontalArrangement = Arrangement.spacedBy(CoreSpacingTokens.Sm)) {
-                    TextButton(onClick = { onFavoriteToggle(photo) }) {
+                    PillButton(onClick = { onFavoriteToggle(photo) }) {
                         Text(text = if (isFavorite) "Saved" else "Save")
                     }
                     Text(
@@ -320,7 +325,7 @@ private fun HomePhotoCard(
                             modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
                         )
                     }
-                    TextButton(onClick = { onFavoriteToggle(photo) }) {
+                    PillButton(onClick = { onFavoriteToggle(photo) }) {
                         Text(text = if (isFavorite) "Remove" else "Favorite")
                     }
                 }
@@ -352,7 +357,7 @@ private fun HomePhotoCard(
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                 )
-                TextButton(onClick = { onFavoriteToggle(photo) }) {
+                PillButton(onClick = { onFavoriteToggle(photo) }) {
                     Text(text = if (isFavorite) "Unfavorite" else "Favorite")
                 }
             }

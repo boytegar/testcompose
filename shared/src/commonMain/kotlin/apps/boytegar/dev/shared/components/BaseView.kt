@@ -54,6 +54,7 @@ fun BaseView(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
+                .padding(horizontal = 16.dp)
                 .background(backgroundColor),
         ) {
             content()

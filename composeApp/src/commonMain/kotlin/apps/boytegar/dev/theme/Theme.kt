@@ -82,17 +82,17 @@ private val DarkColorScheme = darkColorScheme(
     surfaceContainerHighest = SurfaceContainerHighestDark,
 )
 
-internal val LocalThemeIsDark = compositionLocalOf { mutableStateOf(true) }
+internal val LocalThemeIsDark = compositionLocalOf { mutableStateOf(false) }
 
 @Composable
 internal fun AppTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    darkTheme: Boolean = false,
     onThemeChanged: @Composable (Boolean) -> Unit = {},
     content: @Composable () -> Unit,
 ) {
     onThemeChanged(darkTheme)
 
-    val colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme
+    val colorScheme = LightColorScheme
 
     MaterialTheme(
         colorScheme = colorScheme,

@@ -1,0 +1,39 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="96dp"
+    android:height="96dp"
+    android:viewportWidth="96"
+    android:viewportHeight="96">
+    <!-- Shield outline -->
+    <path
+        android:fillColor="#004AAD"
+        android:pathData="M48,8 L16,24 L16,52 C16,68 28,82 48,88 C68,82 80,68 80,52 L80,24 Z"
+        android:strokeWidth="3"
+        android:strokeColor="#004AAD"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillAlpha="0.08"/>
+    <!-- Shield solid -->
+    <path
+        android:fillColor="#004AAD"
+        android:fillAlpha="0.12"
+        android:pathData="M48,12 L20,26 L20,50 C20,64 30,76 48,82 C66,76 76,64 76,50 L76,26 Z"/>
+    <!-- Medical cross vertical -->
+    <path
+        android:fillColor="#004AAD"
+        android:pathData="M42,30 L54,30 L54,66 L42,66 Z"
+        android:strokeWidth="0"/>
+    <!-- Medical cross horizontal -->
+    <path
+        android:fillColor="#004AAD"
+        android:pathData="M30,42 L66,42 L66,54 L30,54 Z"
+        android:strokeWidth="0"/>
+    <!-- Pulse line -->
+    <path
+        android:fillColor="#00D2C4"
+        android:pathData="M24,58 L36,58 L40,48 L44,68 L48,58 L52,58 L56,48 L60,68 L64,58 L72,58"
+        android:strokeWidth="2.5"
+        android:strokeColor="#00D2C4"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000"/>
+</vector>

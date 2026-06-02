@@ -12,7 +12,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -20,6 +19,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import apps.boytegar.dev.core.ui.primitives.CoreCard
+import apps.boytegar.dev.core.ui.primitives.PillButton
+import apps.boytegar.dev.core.ui.theme.CoreColorTokens
 import apps.boytegar.dev.core.ui.theme.CoreSpacingTokens
 import apps.boytegar.dev.features.favorites.di.FavoritesDi
 import apps.boytegar.dev.features.favorites.domain.model.FavoritePhoto
@@ -96,33 +97,34 @@ private fun FavoritesContent(
 
 @Composable
 private fun FavoritesHeroCard(count: Int) {
-    CoreCard(
-        modifier = Modifier.fillMaxWidth(),
-        containerColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.08f),
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = CoreSpacingTokens.Md),
+        verticalArrangement = Arrangement.spacedBy(CoreSpacingTokens.Sm),
     ) {
-        Column(verticalArrangement = Arrangement.spacedBy(CoreSpacingTokens.Md)) {
+        Text(
+            text = "LOCAL COLLECTION",
+            style = MaterialTheme.typography.labelMedium,
+            color = CoreColorTokens.Primary,
+        )
+        Text(
+            text = "Saved from Home",
+            style = MaterialTheme.typography.headlineMedium,
+        )
+        Text(
+            text = "Foto favorit tersimpan di Room dan tampil dengan kartu yang sedikit berbeda dari feed utama.",
+            style = MaterialTheme.typography.bodyMedium,
+        )
+        Surface(
+            shape = RoundedCornerShape(20.dp),
+            color = MaterialTheme.colorScheme.surface.copy(alpha = 0.84f),
+        ) {
             Text(
-                text = "LOCAL COLLECTION",
-                style = MaterialTheme.typography.labelMedium,
+                text = "$count saved",
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp),
             )
-            Text(
-                text = "Saved from Home",
-                style = MaterialTheme.typography.headlineMedium,
-            )
-            Text(
-                text = "Foto favorit tersimpan di Room dan tampil dengan kartu yang sedikit berbeda dari feed utama.",
-                style = MaterialTheme.typography.bodyMedium,
-            )
-            Surface(
-                shape = RoundedCornerShape(20.dp),
-                color = MaterialTheme.colorScheme.surface.copy(alpha = 0.84f),
-            ) {
-                Text(
-                    text = "$count saved",
-                    style = MaterialTheme.typography.titleMedium,
-                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp),
-                )
-            }
         }
     }
 }
@@ -134,16 +136,14 @@ private fun FavoritePhotoCard(
     onPhotoClick: (FavoritePhoto) -> Unit,
     onRemoveClick: (FavoritePhoto) -> Unit,
 ) {
-    CoreCard(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable { onPhotoClick(photo) },
-        containerColor = when (index % 2) {
-            0 -> MaterialTheme.colorScheme.surface.copy(alpha = 0.94f)
-            else -> MaterialTheme.colorScheme.primary.copy(alpha = 0.06f)
-        },
-    ) {
-        if (index % 2 == 0) {
+    if (index % 2 == 0) {
+        CoreCard(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { onPhotoClick(photo) },
+            containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.94f),
+            shadowElevation = 0.dp,
+        ) {
             Column(
                 verticalArrangement = Arrangement.spacedBy(CoreSpacingTokens.Xs),
             ) {
@@ -163,11 +163,19 @@ private fun FavoritePhotoCard(
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                 )
-                TextButton(onClick = { onRemoveClick(photo) }) {
+                PillButton(onClick = { onRemoveClick(photo) }) {
                     Text(text = "Remove")
                 }
             }
-        } else {
+        }
+    } else {
+        CoreCard(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { onPhotoClick(photo) },
+            containerColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.06f),
+            shadowElevation = 0.dp,
+        ) {
             Row(
                 horizontalArrangement = Arrangement.spacedBy(CoreSpacingTokens.Md),
             ) {
@@ -205,7 +213,7 @@ private fun FavoritePhotoCard(
                             modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
                         )
                     }
-                    TextButton(onClick = { onRemoveClick(photo) }) {
+                    PillButton(onClick = { onRemoveClick(photo) }) {
                         Text(text = "Remove")
                     }
                 }

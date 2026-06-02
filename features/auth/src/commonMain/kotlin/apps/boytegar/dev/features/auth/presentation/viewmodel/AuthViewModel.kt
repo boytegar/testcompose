@@ -23,7 +23,31 @@ class AuthViewModel(
         }
     }
 
-    fun login(username: String, password: String) {
+    fun loginWithPhone(phoneNumber: String) {
+        viewModelScope.launch {
+            _uiState.value = Results.loading()
+            delay(loginDelayMillis)
+            _uiState.value = Results.success(Unit)
+        }
+    }
+
+    fun loginWithGoogle() {
+        viewModelScope.launch {
+            _uiState.value = Results.loading()
+            delay(loginDelayMillis)
+            _uiState.value = Results.success(Unit)
+        }
+    }
+
+    fun loginWithFacebook() {
+        viewModelScope.launch {
+            _uiState.value = Results.loading()
+            delay(loginDelayMillis)
+            _uiState.value = Results.success(Unit)
+        }
+    }
+
+    fun loginWithX() {
         viewModelScope.launch {
             _uiState.value = Results.loading()
             delay(loginDelayMillis)

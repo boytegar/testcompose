@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import apps.boytegar.dev.core.ui.primitives.CoreCard
+import apps.boytegar.dev.core.ui.theme.CoreColorTokens
 import apps.boytegar.dev.core.ui.theme.CoreSpacingTokens
 
 @Composable
@@ -23,7 +24,7 @@ fun HomeLoadingLayout() {
     ) {
         CoreCard(
             modifier = Modifier.padding(CoreSpacingTokens.Lg),
-            containerColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.08f),
+            containerColor = CoreColorTokens.Surface,
             shadowElevation = 0.dp,
         ) {
             Column(
@@ -35,6 +36,7 @@ fun HomeLoadingLayout() {
                     text = "Memuat foto...",
                     style = MaterialTheme.typography.titleMedium,
                     textAlign = TextAlign.Center,
+                    color = CoreColorTokens.Primary,
                 )
                 Text(
                     text = "Menata tampilan agar alurnya terasa lebih halus.",
